@@ -14,13 +14,14 @@ void DrawImage256(uint16_t x_origin, uint8_t y_origin, uint16_t bg) { // pass x 
       While (Index<imagesize){
          Status=Image256[Index]; //first byte after the header is always a status byte.  
          //if status is less than 128, then we will have upto 127 different color pixels after the status byte.
-        /if status is greater than 128, then we have a block of same color pixels, upto 127 of them :
+        //if status is greater than 128, then we have a block of same color pixels, upto 127 of them, represented by that 
+        //single status byte :
                   
          if (Status>128){ 
-            Status=Status-128;
+            Status=Status-128; //i = subtract 128 to find the actual number of same color bytes
             Pixel=Image256[Index+1];
-            for (i=0;i<Status;i++){
-               PixelColor=colors256[Pixel];
+            for (i=0;i<Status;i++){ //loop (i) times and draw a pixel:
+               PixelColor=colors256[Pixel]; //check that our pixel is not 255-white, this is our BG color and is transparent
                if (Pixel<255) {display_drawPixel(x_origin + x_cursor, y_origin + y_cursor,  PixelColor);}
             
                x_cursor++;
