@@ -3,4 +3,5 @@ This reads in the data from the BMP, reformats it so it is in a top-down format 
 
 Compression ratio varies, but typically between 25-50%, which is good enough for the use case of encoding icons and small graphical items for low power MCUs.
 Companion decompressor is written in CCS C for PIC MCUs and lookup RGB table.
+Lookup table is incomplete; its a long process to check each color from Windows Paint to see which rgb565 color corresponds to which 8bit value.  
 
