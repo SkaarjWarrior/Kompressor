@@ -12,10 +12,11 @@ void DrawImage256(uint16_t x_origin, uint8_t y_origin, uint16_t bg) { // pass x 
    
   //Main loop
       While (Index<imagesize){
-         Status=Image256[Index];
-         
+         Status=Image256[Index]; //first byte after the header is always a status byte.  
+         //if status is less than 128, then we will have upto 127 different color pixels after the status byte.
+        /if status is greater than 128, then we have a block of same color pixels, upto 127 of them :
                   
-         if (Status>128){ //if we have a block of same color pixels
+         if (Status>128){ 
             Status=Status-128;
             Pixel=Image256[Index+1];
             for (i=0;i<Status;i++){
