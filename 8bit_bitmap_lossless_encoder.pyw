@@ -16,8 +16,8 @@ def Kompressor(filename):
 
     data=(file.read())
 
-    width=(int(data[18]))+int(data[19]*256)
-    height=(int(data[22]))+int(data[23]*256)
+    width=(int(data[18]))+int(data[19]*256) //pull image width from file header
+    height=(int(data[22]))+int(data[23]*256) //pull image height from file header
     
     bitdepth=1
     print("image width = ",width," pixels")
@@ -31,10 +31,10 @@ def Kompressor(filename):
 
     print("***************************************Pass 1********************************************************** ")
 
-    #                   end of file(TOP) TO beginning of file(BOTTOM), step (- width) 
+    #                   end of file(TOP) TO beginning of file(BOTTOM), bitdepth (- width) 
     for line in range(filesize-width,(filesize-(imagesize+width)),-(width)): # width is the length of each line, we start at the end of the file -120 bytes
            
-        for every2bytes in range(line,line+width,bitdepth): #step 1 for 256 color, step 2 for 16 color
+        for every2bytes in range(line,line+width,bitdepth): #bitdepth 1 for 256 color, bitdepth 2 for 16 color
             byte=str((data[every2bytes]))+","
             if byte=="8,":
                 byte="246," # If we need white, we paint with Grey-green and change it here to 246 white
